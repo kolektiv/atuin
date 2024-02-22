@@ -13,6 +13,7 @@ mod sync;
 mod account;
 
 mod config;
+mod daemon;
 mod default_config;
 mod history;
 mod import;
@@ -57,6 +58,9 @@ pub enum Cmd {
 
     #[command()]
     Init(init::Cmd),
+
+    #[command()]
+    Daemon,
 
     /// Print example configuration
     #[command()]
@@ -117,6 +121,8 @@ impl Cmd {
                 default_config::run();
                 Ok(())
             }
+
+            Self::Daemon => daemon::run(&settings).await,
         }
     }
 }

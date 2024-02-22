@@ -312,6 +312,21 @@ pub struct Keys {
 }
 
 #[derive(Clone, Debug, Deserialize)]
+pub struct Daemon {
+    pub enabled: bool,
+    pub socked_path: String,
+}
+
+impl Default for Daemon {
+    fn default() -> Self {
+        Self {
+            enabled: false,
+            socked_path: "".to_string(),
+        }
+    }
+}
+
+#[derive(Clone, Debug, Deserialize)]
 pub struct Settings {
     pub dialect: Dialect,
     pub timezone: Timezone,
@@ -367,6 +382,9 @@ pub struct Settings {
 
     #[serde(default)]
     pub keys: Keys,
+
+    #[serde(default)]
+    pub daemon: Daemon,
 
     // This is automatically loaded when settings is created. Do not set in
     // config! Keep secrets and settings apart.
